@@ -20,11 +20,9 @@ number.forEach((num) => {
             x=x*10+digit;
             display.textContent = x;
         }
-        else
-        {
-            y=y*10+digit;
-            display.textContent = x  +  operator  + y;
-        }
+         y=y*10+digit;
+         display.textContent = x  +  operator  + y;
+        
     })
 });
 
