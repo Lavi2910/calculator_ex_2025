@@ -1,5 +1,5 @@
 
-let operator = undefined;
+let operator;
 let x=0;
 let y=0;
 
@@ -14,8 +14,10 @@ let equal = document.querySelector('#equal')
 
 number.forEach((num) => {
     num.addEventListener('click', function() {
+        if (num == NaN)
+            return;
         let digit = parseInt(num.textContent);
-        if (operator===undefined)
+        if (!operator)
         {
             x=x*10+digit;
             display.textContent = x;
@@ -27,40 +29,35 @@ number.forEach((num) => {
     })
 });
 
-add.addEventListener('click', function() {
-    operator = '+'
-    display.textContent += operator;
-})
+const operators = document.querySelectorAll('.operator-btn')
 
-subtract.addEventListener('click', function() {
-    operator = '-'
-    display.textContent += operator;
-})
+operators.forEach((button => {
+    button.addEventListener('click',function(e){
+        operator=e.target.textContent;
 
-divide.addEventListener('click', function() {
-    operator = '/'
-    display.textContent += operator;
-})
+        display.textContent += operator;
+    })
+}))
 
-multiply.addEventListener('click', function() {
-    operator = '*'
-    display.textContent += operator;
-})
 
 clear.addEventListener('click',function(){
     resetAll();
-    display.textContent='';
 })
+
+const operatorAdd = '+';
+const operatorSub = '-';
+const operatorDiv = '/';
+const operatorMul = '*';
 
 equal.addEventListener('click',function() {
     let result;
-    if (operator === '+')
+    if (operator === operatorAdd)
         result = x+y;
-    else if(operator === '-')
+    else if(operator === operatorSub)
         result = x-y;
-    else if (operator === '/')
+    else if (operator === operatorDiv)
         result = x/y;
-    else if (operator ==='*')
+    else if (operator === operatorMul)
         result = x*y;
     display.textContent=result;
     resetAll();
@@ -70,4 +67,5 @@ function resetAll() {
     x=0;
     y=0;
     operator=undefined;
+    display.textContent = '';
 }
